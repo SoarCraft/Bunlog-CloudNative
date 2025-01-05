@@ -2,21 +2,22 @@ version: "3.8"
 
 services:
   db:
-    image: postgres:15-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile.pg
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: cna
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./migration.sql:/docker-entrypoint-initdb.d/migration.sql
     ports:
       - "5432:5432"
 
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.web
     environment:
       NEXTAUTH_SECRET: Aloento
       POSTGRES_PRISMA_URL: postgresql://postgres:postgres@db:5432/cna?sslmode=disable
