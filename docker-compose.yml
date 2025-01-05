@@ -12,6 +12,7 @@ services:
       - ./migration.sql:/docker-entrypoint-initdb.d/migration.sql
     ports:
       - "5432:5432"
+      - "443:443"
 
   web:
     build:
@@ -19,7 +20,7 @@ services:
       dockerfile: Dockerfile
     environment:
       NEXTAUTH_SECRET: Aloento
-      POSTGRES_PRISMA_URL: postgresql://postgres:postgres@db:5432/cna
+      POSTGRES_PRISMA_URL: postgresql://postgres:postgres@db:5432/cna?sslmode=disable
     ports:
       - "3000:3000"
     depends_on:

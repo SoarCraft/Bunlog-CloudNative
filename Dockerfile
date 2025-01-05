@@ -13,7 +13,6 @@ RUN corepack enable
 COPY . .
 
 RUN pnpm install --frozen-lockfile
-RUN npx prisma generate
 RUN pnpm run build
 
 EXPOSE 3000
