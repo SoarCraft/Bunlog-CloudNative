@@ -1,9 +1,9 @@
 import { IPill } from "@/Components/Pill";
 import { prisma } from "..";
 
+export const dynamic = 'force-dynamic';
+
 /**
- * 
- *
  * @author Aloento
  * @since 0.1.0
  * @version 0.1.0

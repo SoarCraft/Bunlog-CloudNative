@@ -1,4 +1,4 @@
-FROM node:current-alpine as base
+FROM node:current-alpine AS base
 
 RUN apk add --no-cache libc6-compat
 

@@ -1,5 +1,7 @@
-import { IStatistics } from '@/Components/PersonCard'
-import { prisma } from '..'
+import { IStatistics } from '@/Components/PersonCard';
+import { prisma } from '..';
+
+export const dynamic = 'force-dynamic';
 
 /**
  * @author Aloento
