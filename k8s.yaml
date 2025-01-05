@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-test
+  namespace: gitlab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-test
+  template:
+    metadata:
+      labels:
+        app: nginx-test
+    spec:
+      containers:
+        - image: <IMAGE_NAME>
+          name: container-0
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 250m
+          volumeMounts: []
+      imagePullSecrets:
+        - name: default-secret
+  
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-test
+  namespace: gitlab
+spec:
+  selector:
+    app: nginx-test
+  ports:
+    - name: cce-service-0
+      targetPort: 80
+      nodePort: 31111
+      port: 80
+      protocol: TCP
+  type: NodePort
