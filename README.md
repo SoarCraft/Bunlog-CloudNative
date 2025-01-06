@@ -2,21 +2,24 @@
 
 A Simple Personal Blog & Frontend Framework Course Sample Work
 
-It has the same design as https://Aloen.to/
+It has the same design as <https://Aloen.to/>
 
-## Requirements
+## Setup Cloudinary
 
-- NodeJS
-- PNPM
+```sh
+echo $(cat ~/.kube/config | base64) | tr -d " "
 
-## Setup
+printf "$swr_ak" | openssl dgst -binary -sha256 -hmac "$SK" | od -An -vtx1 | sed 's/[ \n]//g' | sed 'N;s/\n//'
 
-- Run `corepack enable`
+docker login -u $project@$swr_ak -p $swr_sk $url
 
-- `cd` where `package.json` is located
+docker build -t $url/$organization/pgdb:latest -f Dockerfile.pg .
 
-- Run `pnpm install`
+docker push $url/$organization/pgdb:latest
 
-- Run `npx prisma generate`
+docker build -t $url/$organization/web:latest -f Dockerfile.web .
 
-- Run `pnpm run dev`
+docker push $url/$organization/web:latest
+
+kubectl apply -f k8s.yaml
+```
