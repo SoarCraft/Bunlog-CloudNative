@@ -21,8 +21,8 @@ jobs:
 
       - name: Build and push pg image
         run: |
-          docker build -t swr.eu-de.otc.t-systems.com/testtesttest/pg:latest -f Dockerfile.pg .
-          docker push swr.eu-de.otc.t-systems.com/testtesttest/pg:latest
+          docker build -t swr.eu-de.otc.t-systems.com/testtesttest/pgdb:latest -f Dockerfile.pg .
+          docker push swr.eu-de.otc.t-systems.com/testtesttest/pgdb:latest
 
       - name: Build and push web image
         run: |

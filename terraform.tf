@@ -15,6 +15,18 @@ resource "opentelekomcloud_swr_organization_v2" "swr_org" {
   name = var.swr_org_name
 }
 
+resource "opentelekomcloud_swr_repository_v2" "web" {
+  organization = opentelekomcloud_swr_organization_v2.swr_org.name
+  name = "web"
+  is_public = false
+}
+
+resource "opentelekomcloud_swr_repository_v2" "pg" {
+  organization = opentelekomcloud_swr_organization_v2.swr_org.name
+  name = "pgdb"
+  is_public = false
+}
+
 variable "vpc_id" {
   default = "0bd45fdf-bf78-41e5-bd08-99f1c65e0147"
 }
@@ -36,8 +48,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   vpc_id = var.vpc_id
   subnet_id = var.subnet_id
   container_network_type = "overlay_l2"
-  authentication_mode = "rbac"
-  kube_proxy_mode = "ipvs"
+  kube_proxy_mode = "iptables"
   eip = var.eip
 
   delete_all_storage = "true"

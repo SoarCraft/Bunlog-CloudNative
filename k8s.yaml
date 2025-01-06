@@ -57,7 +57,7 @@ spec:
               value: postgres
             - name: POSTGRES_USER
               value: postgres
-          image: swr.eu-de.otc.t-systems.com/testtesttest/pg:latest
+          image: swr.eu-de.otc.t-systems.com/testtesttest/pgdb:latest
           name: pg
           ports:
             - containerPort: 5432
