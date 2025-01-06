@@ -68,6 +68,8 @@ spec:
         - name: postgres-data
           persistentVolumeClaim:
             claimName: postgres-data
+      imagePullSecrets:
+        - name: default-secret
 status: {}
 
 ---
@@ -118,6 +120,8 @@ spec:
             - containerPort: 3000
           resources: {}
       restartPolicy: Always
+      imagePullSecrets:
+        - name: default-secret
 status: {}
 
 ---
