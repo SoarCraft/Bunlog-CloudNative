@@ -55,7 +55,7 @@ spec:
               value: postgres
             - name: POSTGRES_USER
               value: postgres
-          image: db
+          image: swr.eu-de.otc.t-systems.com/testtesttest/pg:latest
           name: db
           ports:
             - containerPort: 5432
@@ -112,7 +112,7 @@ spec:
               value: Aloento
             - name: POSTGRES_PRISMA_URL
               value: postgresql://postgres:postgres@db:5432/cna?sslmode=disable
-          image: web
+          image: swr.eu-de.otc.t-systems.com/testtesttest/web:latest
           name: web
           ports:
             - containerPort: 3000
