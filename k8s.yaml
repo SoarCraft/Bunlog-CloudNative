@@ -18,13 +18,18 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     io.kompose.service: postgres-data
+    failure-domain.beta.kubernetes.io/region: eu-de
+    failure-domain.beta.kubernetes.io/zone: eu-de-03
   name: postgres-data
+  annotations:
+    everest.io/disk-volume-type: SSD
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: 1Gi
+  storageClassName: csi-disk
 
 ---
 apiVersion: apps/v1
