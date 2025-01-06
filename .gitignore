@@ -38,3 +38,5 @@ next-env.d.ts
 .terraform
 *.hcl
 provider.tf
+*.tfstate
+*.tfstate.backup

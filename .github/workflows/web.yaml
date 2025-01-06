@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.PROJECT }}@${{ secrets.SWR_AK }} -p ${{ secrets.SWR_SK }} swr.eu-de.otc.t-systems.com
+
+      - name: Build and push pg image
+        run: |
+          docker build -t swr.eu-de.otc.t-systems.com/testtesttest/pg:latest -f Dockerfile.pg .
+          docker push swr.eu-de.otc.t-systems.com/testtesttest/pg:latest
+
+      - name: Build and push web image
+        run: |
+          docker build -t swr.eu-de.otc.t-systems.com/testtesttest/web:latest -f Dockerfile.web .
+          docker push swr.eu-de.otc.t-systems.com/testtesttest/web:latest
+
+      - name: Apply Kubernetes configuration
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: apply -f k8s.yaml
