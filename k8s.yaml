@@ -38,8 +38,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: pg
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -63,7 +61,6 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data
       restartPolicy: Always
-      serviceName: pg
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
