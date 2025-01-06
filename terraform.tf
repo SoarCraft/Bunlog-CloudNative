@@ -42,3 +42,30 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
 
   delete_all_storage = "true"
 }
+
+variable "availability_zone" {
+  default = "eu-de-03"
+}
+
+variable "key_pair" {
+  default = "KeyPair-Aloento"
+}
+
+resource "opentelekomcloud_cce_node_v3" "node" {
+  name = "test-node"
+  cluster_id = opentelekomcloud_cce_cluster_v3.cluster.id
+  availability_zone = var.availability_zone
+
+  flavor_id = "s2.large.2"
+  key_pair = var.key_pair
+
+  root_volume {
+    size = 40
+    volumetype = "SATA"
+  }
+
+  data_volumes {
+    size = 40
+    volumetype = "SATA"
+  }
+}
