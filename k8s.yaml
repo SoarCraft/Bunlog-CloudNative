@@ -25,11 +25,10 @@ spec:
   resources:
     requests:
       storage: 100Mi
-status: {}
 
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     io.kompose.service: pg
@@ -64,13 +63,13 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data
       restartPolicy: Always
+      serviceName: pg
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
             claimName: postgres-data
       imagePullSecrets:
         - name: default-secret
-status: {}
 
 ---
 apiVersion: v1
@@ -86,8 +85,7 @@ spec:
       targetPort: 5432
   selector:
     io.kompose.service: pg
-status:
-  loadBalancer: {}
+  clusterIP: None
 
 ---
 apiVersion: apps/v1
@@ -101,7 +99,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: web
-  strategy: {}
   template:
     metadata:
       labels:
@@ -122,7 +119,6 @@ spec:
       restartPolicy: Always
       imagePullSecrets:
         - name: default-secret
-status: {}
 
 ---
 apiVersion: v1
@@ -139,5 +135,3 @@ spec:
   selector:
     io.kompose.service: web
   type: NodePort
-status:
-  loadBalancer: {}
